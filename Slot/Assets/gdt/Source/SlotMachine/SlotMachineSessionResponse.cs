@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
+[System.Serializable]
 public class SlotMachineSessionResponse : GameplaySession
 {
     public SlotMachine GameOverview { get; set; }

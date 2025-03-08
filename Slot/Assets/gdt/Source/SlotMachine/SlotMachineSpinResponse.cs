@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
+[System.Serializable]
 public class SlotMachineSpinResponse
 {
     public string BearerToken { get; set; }

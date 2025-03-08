@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Source.SlotMachine
 {
+    [System.Serializable]
     public class SlotMachine
     {
         public long GameId { get; set; }
