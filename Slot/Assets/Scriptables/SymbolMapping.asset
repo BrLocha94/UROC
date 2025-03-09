@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eab46a519a92bfe40975f51a1781e782, type: 3}
+  m_Name: SymbolMapping
+  m_EditorClassIdentifier: 
+  symbolList:
+  - name: AA
+    sprite: {fileID: 5773447270728417692, guid: 431fc711709445d468d2d3e0c7cd7fec, type: 3}
+    size: 0.22
+  - name: BB
+    sprite: {fileID: 4915403610606180675, guid: d7dfd777fd648f14bbf079597ab9a87f, type: 3}
+    size: 0.22
+  - name: BG
+    sprite: {fileID: -6695950386315148514, guid: 572571aef30b7c048afb7da9c3ca17dc, type: 3}
+    size: 0.11
+  - name: CC
+    sprite: {fileID: -1567753677425261789, guid: 5b7d4fc4772d61549a21529dc19e8bb3, type: 3}
+    size: 0.22
+  - name: DD
+    sprite: {fileID: -6622380337910913930, guid: f64859f3392f512419da5a905ee2ca5d, type: 3}
+    size: 0.22
+  - name: EE
+    sprite: {fileID: 9084830369248594494, guid: d567721665e69cd4b9085467660f5a87, type: 3}
+    size: 0.22
+  - name: FF
+    sprite: {fileID: 9129816909360110768, guid: 7a0070eda8ff8304dbffe6d4c66ddec1, type: 3}
+    size: 0.22
+  - name: GG
+    sprite: {fileID: -8468551184017497215, guid: b36e570d43730c04bbd949c599fd5e3e, type: 3}
+    size: 0.22
+  - name: HH
+    sprite: {fileID: -8163357289274016636, guid: a93d637459abaf34fb4b2301de797b0e, type: 3}
+    size: 0.22
+  - name: JJ
+    sprite: {fileID: -7147492911834177937, guid: 27276faa1b07cc042a6a478235cad1a2, type: 3}
+    size: 0.22
+  - name: KK
+    sprite: {fileID: -5878248771796013529, guid: 3e38c34c595b9fd43b82665dba064efc, type: 3}
+    size: 0.22
+  - name: SC
+    sprite: {fileID: 444809430971379750, guid: ec4a9492225dbd741b464d4bf7ff0c76, type: 3}
+    size: 0.11
+  - name: Smash
+    sprite: {fileID: 4205024740364508292, guid: cbfea5e1080107a44a754e4226d02e44, type: 3}
+    size: 0.11
+  - name: Spin
+    sprite: {fileID: 8451113501370137307, guid: fa14d729d1c633f47b88732d7d203197, type: 3}
+    size: 0.28
+  - name: WD
+    sprite: {fileID: -8236562916910258491, guid: b9529450557e6254797299d2bc003426, type: 3}
+    size: 0.22
