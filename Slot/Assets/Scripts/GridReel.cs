@@ -1,12 +1,14 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.Playables;
-using static UnityEngine.GraphicsBuffer;
 
 public class GridReel : MonoBehaviour
 {
+    public Action onReelSpinning;
+    public Action onReelStopped;
+
     [SerializeField]
-    private PlayableDirector director;
+    private ReelTimelineHandler timelineHandler;
     [SerializeField]
     private SymbolMapping symbolMapping;
 
@@ -15,6 +17,9 @@ public class GridReel : MonoBehaviour
     [SerializeField]
     private List<GridSlot> gridSlots = new List<GridSlot>();
 
+    private const float REEL_MIN_SPEED = 3f;
+    private const float REEL_MAX_SPEED = 5f;
+    private const float REEL_ACCELERATION = 0.25f;
 
     private void Awake()
     {
@@ -25,11 +30,10 @@ public class GridReel : MonoBehaviour
             Symbol newSymbol = symbolMapping.GetSymbol(initialSymbols[i]);
             slot.SetNewSymbol(newSymbol);
         }
-    }
 
-    private void Start()
-    {
-        director.Pause();
+        timelineHandler.onReelStartSpinning += ReelSpinning;
+        timelineHandler.onReelStartStopping += ReelStartStopping;
+        timelineHandler.onReelFinishedStopping += ReelStopped;
     }
 
     private void OnDestroy()
@@ -38,6 +42,10 @@ public class GridReel : MonoBehaviour
         {
             slot.onPositionReseted -= OnGridSlotPositionReseted;
         }
+
+        timelineHandler.onReelStartSpinning -= ReelSpinning;
+        timelineHandler.onReelStartStopping -= ReelStartStopping;
+        timelineHandler.onReelFinishedStopping -= ReelStopped;
     }
 
     private void OnGridSlotPositionReseted(GridSlot target)
@@ -48,13 +56,26 @@ public class GridReel : MonoBehaviour
 
     public void StartReel()
     {
-        director.extrapolationMode = DirectorWrapMode.Loop;
-        director.playableGraph.GetRootPlayable(0).SetSpeed(4.5);
-        director.Play();
+        timelineHandler.StartReel(REEL_MIN_SPEED, REEL_MAX_SPEED, REEL_ACCELERATION);
     }
 
-    public void OnReelAnimationFinished()
+    public void StopReel()
     {
+        timelineHandler.StopReel();
+    }
 
+    private void ReelSpinning()
+    {
+        onReelSpinning?.Invoke();
+    }
+
+    private void ReelStartStopping()
+    {
+        // Symbols are going to be added using an list, not an random
+    }
+
+    private void ReelStopped()
+    {
+        onReelStopped?.Invoke();
     }
 }
