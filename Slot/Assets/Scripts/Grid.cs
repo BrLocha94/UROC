@@ -1,16 +1,128 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
+    public Action onIdleEnter; 
+
     [SerializeField]
     private GridState currentState = GridState.Idle;
     [SerializeField]
     private List<GridReel> reels = new List<GridReel>();
 
+    int reelsExecuting = 0;
+
+    const float MIN_TIME_TO_STOP = 0.5f;
+    const float MAX_TIME_TO_STOP = 1.5f;
+
     private void Start()
     {
-        currentState = GridState.StartSpin;
+        ChangeState(GridState.Idle);
+    }
+
+    public void StartSpin(SpinResultPayout spin)
+    {
+        // Set the reels with correct data
+        for(int i = 0; i < reels.Count; i++) 
+        {
+            reels[i].SetData(spin.ReelMatrix[i]);
+        }
+
+        ChangeState(GridState.StartSpin);
+    }
+
+    private void ChangeState(GridState state)
+    {
+        currentState = state;
+
+        switch (currentState)
+        {
+            case GridState.Idle:
+                ExecuteOnIdle();
+                break;
+            case GridState.StartSpin:
+                ExecuteOnStartSpin();
+                break;
+            case GridState.Spinning:
+                ExecuteOnSpinning();
+                break;
+            case GridState.Stoping:
+                ExecuteOnStopping();
+                break;
+            case GridState.Winlining:
+                ExecuteOnWinlining();
+                break;
+        }
+    }
+
+    private void ExecuteOnIdle()
+    {
+        // IdleBreaker routine?
+        onIdleEnter?.Invoke();
+    }
+
+    private void ExecuteOnStartSpin()
+    {
+        reelsExecuting = 0;
+
+        for (int i = 0; i < reels.Count; i++)
+        {
+            reels[i].onReelSpinning += ReelSpiningCallback;
+            reelsExecuting++;
+            reels[i].StartReel();
+        }
+    }
+
+    private void ReelSpiningCallback(GridReel target)
+    {
+        target.onReelSpinning -= ReelSpiningCallback;
+        reelsExecuting -= 1;
+        if (reelsExecuting == 0)
+            ChangeState(GridState.Spinning);
+    }
+
+    private void ExecuteOnSpinning()
+    {
+        // CHECK ANY ANTICIPATION EVENTS HERE
+        float timer = UnityEngine.Random.Range(MIN_TIME_TO_STOP, MAX_TIME_TO_STOP);
+        this.Invoke(timer, () => ChangeState(GridState.Stoping));
+    }
+
+    private void ExecuteOnStopping()
+    {
+        reelsExecuting = 0;
+
+        for (int i = 0; i < reels.Count; i++)
+        {
+            reels[i].onReelStopped += ReelStoppedCallback;
+            reelsExecuting++;
+        }
+
+        int targetReel = reels.Count - reelsExecuting;
+        reels[targetReel].StopReel();
+    }
+
+    private void ReelStoppedCallback(GridReel target)
+    {
+        target.onReelStopped -= ReelStoppedCallback;
+        reelsExecuting -= 1;
+
+        if (reelsExecuting == 0)
+        {
+            // Check winline or not
+            ChangeState(GridState.Idle);
+        }
+        else
+        {
+            int targetReel = reels.Count - reelsExecuting;
+            reels[targetReel].StopReel();
+        }
+    }
+
+    private void ExecuteOnWinlining()
+    {
+        // On winline finish, change state to idle
     }
 }
 

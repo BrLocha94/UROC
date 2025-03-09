@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GridReel : MonoBehaviour
 {
-    public Action onReelSpinning;
-    public Action onReelStopped;
+    public Action<GridReel> onReelSpinning;
+    public Action<GridReel> onReelStopped;
 
     [SerializeField]
     private ReelTimelineHandler timelineHandler;
@@ -17,18 +17,26 @@ public class GridReel : MonoBehaviour
     [SerializeField]
     private List<GridSlot> gridSlots = new List<GridSlot>();
 
-    private const float REEL_MIN_SPEED = 3f;
-    private const float REEL_MAX_SPEED = 5f;
-    private const float REEL_ACCELERATION = 0.25f;
+    private const float REEL_MIN_SPEED = 5f;
+    private const float REEL_MAX_SPEED = 10f;
+    private const float REEL_ACCELERATION = 0.1f;
+
+    private string[] lastData = null;
+    private List<Symbol> currentData = new List<Symbol>();
+
+    private bool isStopping = false;
 
     private void Awake()
     {
+        lastData = new string[gridSlots.Count];
+
         for (int i = 0; i < gridSlots.Count; i++)
         {
             GridSlot slot = gridSlots[i];
             slot.onPositionReseted += OnGridSlotPositionReseted;
             Symbol newSymbol = symbolMapping.GetSymbol(initialSymbols[i]);
             slot.SetNewSymbol(newSymbol);
+            lastData[i] = newSymbol.name;
         }
 
         timelineHandler.onReelStartSpinning += ReelSpinning;
@@ -50,13 +58,40 @@ public class GridReel : MonoBehaviour
 
     private void OnGridSlotPositionReseted(GridSlot target)
     {
-        Symbol newSymbol = symbolMapping.GetRandomSymbol();
+        Symbol newSymbol;
+
+        if (isStopping)
+        {
+            newSymbol = currentData[currentData.Count - 1];
+            currentData.RemoveAt(currentData.Count - 1);
+            target.SetNewSymbol(newSymbol);
+            return;
+        }
+
+        newSymbol = symbolMapping.GetRandomSymbol();
         target.SetNewSymbol(newSymbol);
+    }
+
+    public void SetData(string[] reelData)
+    {
+        lastData = reelData;
+
+        // 1 extra slot on end
+        currentData = new List<Symbol>{symbolMapping.GetRandomSymbol()};
+
+        for(int i = 0; i < reelData.Length; i++)
+        {
+            currentData.Add(symbolMapping.GetSymbol(reelData[i]));
+        }
+
+        // 1 extra slot on begin
+        currentData.Add(symbolMapping.GetRandomSymbol());
     }
 
     public void StartReel()
     {
         timelineHandler.StartReel(REEL_MIN_SPEED, REEL_MAX_SPEED, REEL_ACCELERATION);
+        isStopping = false;
     }
 
     public void StopReel()
@@ -66,16 +101,17 @@ public class GridReel : MonoBehaviour
 
     private void ReelSpinning()
     {
-        onReelSpinning?.Invoke();
+        onReelSpinning?.Invoke(this);
     }
 
     private void ReelStartStopping()
     {
-        // Symbols are going to be added using an list, not an random
+        isStopping = true;
     }
 
     private void ReelStopped()
     {
-        onReelStopped?.Invoke();
+        onReelStopped?.Invoke(this);
+        isStopping = false;
     }
 }
