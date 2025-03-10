@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: cbfea5e1080107a44a754e4226d02e44
+guid: 7b123690b8ebcf348b042ec4c600ff66
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4205024740364508292
-    second: Smash_0
+      213: 6542614226613684040
+    second: popup_base_9grid_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,13 +46,13 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 39, y: 36, z: 40, w: 37}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Smash_0
+      name: popup_base_9grid_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1600
-        height: 1600
+        x: 5
+        y: 4
+        width: 107
+        height: 107
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 48cd721e8bf3b5a30800000000000000
-      internalID: 4205024740364508292
+      spriteID: 847c9bf89f80cca50800000000000000
+      internalID: 6542614226613684040
       vertices: []
       indices: 
       edges: []
@@ -138,8 +138,8 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
-    internalID: 0
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Smash_0: 4205024740364508292
+      popup_base_9grid_0: 6542614226613684040
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

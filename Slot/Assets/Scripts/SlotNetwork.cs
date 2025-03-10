@@ -2,9 +2,13 @@ using UnityEngine;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
+using System;
 
 public class SlotNetwork : MonoSingleton<SlotNetwork>
 {
+    public Action onRequestSucceded;
+    public Action onRequestFailed;
+
     private HttpRequestHelper httpRequestHelper = new HttpRequestHelper();
 
     private string initializeRoute = "SlotMachine/Initialise";
@@ -15,10 +19,13 @@ public class SlotNetwork : MonoSingleton<SlotNetwork>
     private const string GAME_TOKEN = "3x3_10FreeSpins";
     private const string PLAYER_TOKEN = "12345-abcde";
 
-    private SlotMachineSessionResponse sessionResponse;
-    private SlotMachineSpinResponse spinResponse;
+    public SlotMachineSessionResponse sessionResponse { get; private set; }
+    public SlotMachineSpinResponse spinResponse { get; private set; }
 
     private float retryTimer = 5f;
+
+    private int maxRetry = 3;
+    private int retryCounter = 0;
 
     private float defaultBetAmount = 1f;
     private int defaultNumberOfLines = 5;
@@ -31,6 +38,8 @@ public class SlotNetwork : MonoSingleton<SlotNetwork>
 
     public void StartRequestInitialize()
     {
+        retryCounter = 0;
+
         Dictionary<string, string> queryParams = new Dictionary<string, string>
         {
             { "Brand", BRAND },
@@ -48,17 +57,27 @@ public class SlotNetwork : MonoSingleton<SlotNetwork>
     {
         Debug.Log("Initialize succeded");
         sessionResponse = JsonConvert.DeserializeObject<SlotMachineSessionResponse>(httpRequestHelper._activeResponse);
+        onRequestSucceded?.Invoke();
     }
 
     private void OnInitializeFailed()
     {
-        Debug.Log($"INITIALIZE FAILED, WILL RETRY IN {retryTimer} SECCONDS");
+        if (retryCounter < maxRetry)
+        {
+            Debug.Log($"INITIALIZE FAILED, WILL RETRY IN {retryTimer} SECCONDS");
+            retryCounter++;
+            Invoke(nameof(StartRequestInitialize), retryTimer);
+            return;
+        }
 
-        Invoke(nameof(StartRequestInitialize), retryTimer);
+        Debug.Log($"INITIALIZE MAX RETRY EXCEDED, REQUEST FAILED");
+        onRequestFailed?.Invoke();
     }
 
     public void StartRequestSpin()
     {
+        retryCounter = 0;
+
         Dictionary<string, string> queryParams = new Dictionary<string, string>
         {
             { "gameId", sessionResponse.GameOverview.GameId.ToString() },
@@ -77,17 +96,27 @@ public class SlotNetwork : MonoSingleton<SlotNetwork>
     {
         Debug.Log("Spin succeded");
         spinResponse = JsonConvert.DeserializeObject<SlotMachineSpinResponse>(httpRequestHelper._activeResponse);
+        onRequestSucceded?.Invoke();
     }
 
     private void OnSpinFailed()
     {
-        Debug.Log($"SPIN FAILED, WILL RETRY IN {retryTimer} SECCONDS");
+        if (retryCounter < maxRetry)
+        {
+            Debug.Log($"SPIN FAILED, WILL RETRY IN {retryTimer} SECCONDS");
+            retryCounter++;
+            Invoke(nameof(StartRequestSpin), retryTimer);
+            return;
+        }
 
-        Invoke(nameof(StartRequestSpin), retryTimer);
+        Debug.Log($"SPIN MAX RETRY EXCEDED, REQUEST FAILED");
+        onRequestFailed?.Invoke();
     }
 
     public void StartRequestConfirm()
     {
+        retryCounter = 0;
+
         Dictionary<string, string> queryParams = new Dictionary<string, string>
         {
             { "gameId", sessionResponse.GameOverview.GameId.ToString() },
@@ -105,12 +134,20 @@ public class SlotNetwork : MonoSingleton<SlotNetwork>
     {
         Debug.Log("Confirm succeded");
         spinResponse = JsonConvert.DeserializeObject<SlotMachineSpinResponse>(httpRequestHelper._activeResponse);
+        onRequestSucceded?.Invoke();
     }
 
     private void OnConfirmFailed()
     {
-        Debug.Log($"CONFIRM FAILED, WILL RETRY IN {retryTimer} SECCONDS");
+        if (retryCounter < maxRetry)
+        {
+            Debug.Log($"CONFIRM FAILED, WILL RETRY IN {retryTimer} SECCONDS");
+            retryCounter++;
+            Invoke(nameof(StartRequestSpin), retryTimer);
+            return;
+        }
 
-        Invoke(nameof(StartRequestSpin), retryTimer);
+        Debug.Log($"CONFIRM MAX RETRY EXCEDED, REQUEST FAILED");
+        onRequestFailed?.Invoke();
     }
 }

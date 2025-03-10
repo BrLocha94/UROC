@@ -4,6 +4,8 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     [SerializeField]
+    private WindowManager windowManager;
+    [SerializeField]
     private Grid grid;
 
     private List<SpinResultPayout> mockedList = new List<SpinResultPayout>();
@@ -67,6 +69,11 @@ public class GameController : MonoBehaviour
         mockedList.Add(resultPayout_03);
         mockedList.Add(resultPayout_04);
         mockedList.Add(resultPayout_05);
+    }
+
+    private void Start()
+    {
+        windowManager.TriggerWindowInit();
     }
 
     public void PLAY()
