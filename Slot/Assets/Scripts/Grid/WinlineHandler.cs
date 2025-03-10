@@ -24,8 +24,12 @@ public class WinlineHandler : MonoBehaviour
             {
                 winlines[i].onWinlineFinished += OnWinlineFinished;
                 winlines[i].ExecuteWinline();
+                winlineExecuting++;
             }
         }
+
+        if(winlineExecuting == 0)
+            onWinlinesFinishedExecuting?.Invoke();
     }
 
     private void OnWinlineFinished(Winline target)

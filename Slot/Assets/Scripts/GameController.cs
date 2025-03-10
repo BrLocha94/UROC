@@ -3,73 +3,21 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    [Header("Mocked handlers")]
+    [SerializeField]
+    private bool useMockedSpin = false;
+
+    [Space]
+
+    [Header("References")]
     [SerializeField]
     private WindowManager windowManager;
     [SerializeField]
+    private UIManager uiManager;
+    [SerializeField]
     private Grid grid;
 
-    private List<SpinResultPayout> mockedList = new List<SpinResultPayout>();
-
-    int currentMockedResult = 0;
-
-    private void Awake()
-    {
-        SpinResultPayout resultPayout_01 = new SpinResultPayout();
-        resultPayout_01.ReelMatrix = new string[][]
-        {
-            new string[] { "AA", "BB", "Smash" },
-            new string[] { "BB", "Spin", "Spin" },
-            new string[] { "BG", "BB", "FF"}
-        };
-        resultPayout_01.isWin = false;
-        resultPayout_01.WinLines = new List<bool> { false, false, false, false, false };
-
-        SpinResultPayout resultPayout_02 = new SpinResultPayout();
-        resultPayout_02.ReelMatrix = new string[][]
-        {
-            new string[] { "WD", "BB", "SC" },
-            new string[] { "KK", "KK", "JJ" },
-            new string[] { "Smash", "HH", "KK"}
-        };
-        resultPayout_02.isWin = true;
-        resultPayout_02.WinLines = new List<bool> { false, false, false, false, true };
-
-        SpinResultPayout resultPayout_03 = new SpinResultPayout();
-        resultPayout_03.ReelMatrix = new string[][]
-        {
-            new string[] { "AA", "BB", "CC" },
-            new string[] { "DD", "EE", "FF" },
-            new string[] { "GG", "HH", "JJ"}
-        };
-        resultPayout_03.isWin = false;
-        resultPayout_03.WinLines = new List<bool> { false, false, false, false, false };
-
-        SpinResultPayout resultPayout_04 = new SpinResultPayout();
-        resultPayout_04.ReelMatrix = new string[][]
-        {
-            new string[] { "AA", "BB", "JJ" },
-            new string[] { "KK", "WD", "JJ" },
-            new string[] { "JJ", "HH", "JJ"}
-        };
-        resultPayout_04.isWin = true;
-        resultPayout_04.WinLines = new List<bool> { false, true, true, false, false };
-
-        SpinResultPayout resultPayout_05 = new SpinResultPayout();
-        resultPayout_05.ReelMatrix = new string[][]
-        {
-            new string[] { "JJ", "AA", "FF" },
-            new string[] { "JJ", "AA", "FF" },
-            new string[] { "JJ", "AA", "FF"}
-        };
-        resultPayout_05.isWin = true;
-        resultPayout_05.WinLines = new List<bool> { true, true, false, true, false };
-
-        mockedList.Add(resultPayout_01);
-        mockedList.Add(resultPayout_02);
-        mockedList.Add(resultPayout_03);
-        mockedList.Add(resultPayout_04);
-        mockedList.Add(resultPayout_05);
-    }
+    private MockedSpinResultHandler mockedSpinHandler = new MockedSpinResultHandler();
 
     private void Start()
     {
@@ -78,10 +26,71 @@ public class GameController : MonoBehaviour
 
     public void PLAY()
     {
-        grid.StartSpin(mockedList[currentMockedResult]);
-        
-        currentMockedResult++;
-        if (currentMockedResult >= mockedList.Count)
-            currentMockedResult = 0;
+        uiManager.ToogleButtons(false);
+
+        if (useMockedSpin)
+        {
+            StartSpin(mockedSpinHandler.GetMockedSpin());
+        }
+        else
+        {
+            SlotNetwork.Instance.onRequestSucceded += OnSpinRequestSucceded;
+            SlotNetwork.Instance.onRequestFailed += OnSpinRequestFailed;
+            SlotNetwork.Instance.StartRequestSpin();
+        }
+    }
+
+
+    private void OnSpinRequestSucceded()
+    {
+        SlotNetwork.Instance.onRequestSucceded -= OnSpinRequestSucceded;
+        SlotNetwork.Instance.onRequestFailed -= OnSpinRequestFailed;
+        StartSpin(SlotNetwork.Instance.spinResponse.SpinResult.Payout);
+    }
+
+    private void OnSpinRequestFailed()
+    {
+        SlotNetwork.Instance.onRequestSucceded -= OnSpinRequestSucceded;
+        SlotNetwork.Instance.onRequestFailed -= OnSpinRequestFailed;
+
+        uiManager.ToogleButtons(true);
+        //ADD FEEDBACK WINDOW
+    }
+
+    private void StartSpin(SpinResultPayout spin)
+    {
+        grid.onIdleEnter += OnGridRevealFinished;
+        grid.StartSpin(spin);
+    }
+
+    private void OnGridRevealFinished()
+    {
+        grid.onIdleEnter -= OnGridRevealFinished;
+
+        if (useMockedSpin)
+            uiManager.ToogleButtons(true);
+        else
+        {
+            SlotNetwork.Instance.onRequestSucceded += OnConfirmRequestSucceded;
+            SlotNetwork.Instance.onRequestFailed += OnConfirmRequestFailed;
+            SlotNetwork.Instance.StartRequestConfirm();
+        }
+    }
+
+    private void OnConfirmRequestSucceded()
+    {
+        SlotNetwork.Instance.onRequestSucceded -= OnConfirmRequestSucceded;
+        SlotNetwork.Instance.onRequestFailed -= OnConfirmRequestFailed;
+
+        uiManager.ToogleButtons(true);
+    }
+
+    private void OnConfirmRequestFailed()
+    {
+        SlotNetwork.Instance.onRequestSucceded -= OnConfirmRequestSucceded;
+        SlotNetwork.Instance.onRequestFailed -= OnConfirmRequestFailed;
+
+        uiManager.ToogleButtons(true);
+        //ADD FEEDBACK WINDOW
     }
 }

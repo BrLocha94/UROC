@@ -486,6 +486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowManager: {fileID: 607573469}
+  uiManager: {fileID: 2771257685897011182}
   grid: {fileID: 306327487}
 --- !u!1 &919819044
 GameObject:
@@ -5615,6 +5616,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a1f2b16e4238704f8aa637deae4856e, type: 3}
+--- !u!114 &2771257685897011182 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3492981520981218569, guid: 7a1f2b16e4238704f8aa637deae4856e, type: 3}
+  m_PrefabInstance: {fileID: 2771257685897011181}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ce69b58113b8bd41a31e9ed2e33fbf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4803220460722176727
 PrefabInstance:
   m_ObjectHideFlags: 0
