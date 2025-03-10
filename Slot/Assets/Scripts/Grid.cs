@@ -9,12 +9,16 @@ public class Grid : MonoBehaviour
     [SerializeField]
     private GridState currentState = GridState.Idle;
     [SerializeField]
+    private WinlineHandler winlineHandler;
+    [SerializeField]
     private List<GridReel> reels = new List<GridReel>();
 
     int reelsExecuting = 0;
 
     const float MIN_TIME_TO_STOP = 0.5f;
     const float MAX_TIME_TO_STOP = 1.5f;
+
+    SpinResultPayout currentSpinData = null;
 
     private void Start()
     {
@@ -23,8 +27,10 @@ public class Grid : MonoBehaviour
 
     public void StartSpin(SpinResultPayout spin)
     {
+        currentSpinData = spin;
+
         // Set the reels with correct data
-        for(int i = 0; i < reels.Count; i++) 
+        for (int i = 0; i < reels.Count; i++) 
         {
             reels[i].SetData(spin.ReelMatrix[i]);
         }
@@ -111,6 +117,12 @@ public class Grid : MonoBehaviour
         if (reelsExecuting == 0)
         {
             // Check winline or not
+            if (currentSpinData.isWin)
+            {
+                ChangeState(GridState.Winlining);
+                return;
+            }
+            
             ChangeState(GridState.Idle);
         }
         else
@@ -122,7 +134,14 @@ public class Grid : MonoBehaviour
 
     private void ExecuteOnWinlining()
     {
-        // On winline finish, change state to idle
+        winlineHandler.onWinlinesFinishedExecuting += WinlineFinishedCallback;
+        winlineHandler.ExecuteWinlines(currentSpinData.WinLines);
+    }
+
+    private void WinlineFinishedCallback()
+    {
+        winlineHandler.onWinlinesFinishedExecuting -= WinlineFinishedCallback;
+        ChangeState(GridState.Idle);
     }
 }
 
