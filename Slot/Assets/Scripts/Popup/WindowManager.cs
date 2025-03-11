@@ -8,31 +8,44 @@ public class WindowManager : MonoBehaviour
     private WindowInit windowInit;
     [SerializeField]
     private WindowConfirm windowConfirm;
+    [SerializeField]
+    private WindowMessage windowMessage;
+
+    private void Awake()
+    {
+        windowInit.onTurnOffFinishedEvent += ClosedWindow;
+        windowConfirm.onTurnOffFinishedEvent += ClosedWindow;
+        windowMessage.onTurnOffFinishedEvent += ClosedWindow;
+    }
 
     public void TriggerWindowInit()
     {
-        bg.alpha = 1f;
-        bg.interactable = true;
-        bg.blocksRaycasts = true;
-
+        ToogleBG(true);
         windowInit.TurnOn();
-        windowInit.onTurnOffFinishedEvent += ClosedWindow;
     }
 
     public void TriggerWindowConfirm()
     {
-        bg.alpha = 1f;
-        bg.interactable = true;
-        bg.blocksRaycasts = true;
-
+        ToogleBG(true);
         windowConfirm.TurnOn();
-        windowConfirm.onTurnOffFinishedEvent += ClosedWindow;
+    }
+
+    public void TriggerWindowMessage(string message)
+    {
+        ToogleBG(true);
+        windowMessage.SetMessage(message);
+        windowMessage.TurnOn();
     }
 
     private void ClosedWindow()
     {
-        bg.alpha = 0f;
-        bg.interactable = false;
-        bg.blocksRaycasts = false;
+        ToogleBG(false);
+    }
+
+    private void ToogleBG(bool enabled)
+    {
+        bg.alpha = enabled ? 1f : 0f;
+        bg.interactable = enabled;
+        bg.blocksRaycasts = enabled;
     }
 }

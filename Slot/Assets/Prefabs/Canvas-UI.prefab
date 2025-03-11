@@ -411,6 +411,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4920377749053711740}
   - component: {fileID: 5468002270109615484}
+  - component: {fileID: 2974261000234619058}
   - component: {fileID: 984958864710020306}
   - component: {fileID: 3110095187853550884}
   m_Layer: 5
@@ -447,6 +448,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2224779589428807591}
   m_CullTransparentMesh: 1
+--- !u!114 &2974261000234619058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2224779589428807591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3035a49a14d096d4c80fb455b1d440df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundSprites:
+  - volume: 0
+    sprite: {fileID: -1748514523701208367, guid: b5810e261dab4a442aa1def8d5c76e60, type: 3}
+  - volume: 1
+    sprite: {fileID: -3236502183269895169, guid: 04e527d4ab7523642843dc5bccaa046c, type: 3}
+  - volume: 2
+    sprite: {fileID: 5578408293478644379, guid: 103cecaa9036b2b4d9aabd0365688374, type: 3}
+  - volume: 3
+    sprite: {fileID: 9187506297685127202, guid: 82a07b480f819ad47b18a0687a6d352c, type: 3}
 --- !u!114 &984958864710020306
 MonoBehaviour:
   m_ObjectHideFlags: 0

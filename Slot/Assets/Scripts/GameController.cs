@@ -19,6 +19,9 @@ public class GameController : MonoBehaviour
 
     private MockedSpinResultHandler mockedSpinHandler = new MockedSpinResultHandler();
 
+    private const string SPIN_FAILED_FEEDBACK = "Cant execute spin. Check internet connection.";
+    private const string CONFIRM_FAILED_FEEDBACK = "Cant confirm play on server. Check internet connection.";
+
     private void Start()
     {
         windowManager.TriggerWindowInit();
@@ -54,7 +57,7 @@ public class GameController : MonoBehaviour
         SlotNetwork.Instance.onRequestFailed -= OnSpinRequestFailed;
 
         uiManager.ToogleButtons(true);
-        //ADD FEEDBACK WINDOW
+        windowManager.TriggerWindowMessage(SPIN_FAILED_FEEDBACK);
     }
 
     private void StartSpin(SpinResultPayout spin)
@@ -91,6 +94,6 @@ public class GameController : MonoBehaviour
         SlotNetwork.Instance.onRequestFailed -= OnConfirmRequestFailed;
 
         uiManager.ToogleButtons(true);
-        //ADD FEEDBACK WINDOW
+        windowManager.TriggerWindowMessage(CONFIRM_FAILED_FEEDBACK);
     }
 }
