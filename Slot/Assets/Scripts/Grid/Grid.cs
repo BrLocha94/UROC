@@ -16,6 +16,8 @@ public class Grid : MonoBehaviour
     private IdleBreakerHandler idleBreakerHandler;
     [SerializeField]
     private AnticipationHandler anticipationHandler;
+    [SerializeField]
+    private ExpectationHandler expectationHandler;
 
     [Header("References")]
     [SerializeField]
@@ -30,10 +32,6 @@ public class Grid : MonoBehaviour
     private AudioClip gridStopClip;
     [SerializeField]
     private float gripStopVolume = 0.8f;
-    [SerializeField]
-    private List<AudioClip> gridStopExpectiationList = new List<AudioClip>();
-    [SerializeField]
-    private float gripStopExpectationVolume = 0.8f;
 
     int reelsExecuting = 0;
 
@@ -57,6 +55,8 @@ public class Grid : MonoBehaviour
     {
         hasExecutedSpin = true;
         currentSpinData = spin;
+
+        expectationHandler.CheckExpectation(currentSpinData);
 
         if (anticipationHandler.HasAnticipation(spin))
         {
@@ -167,7 +167,6 @@ public class Grid : MonoBehaviour
     private void ReelStoppedCallback(GridReel target)
     {
         target.onReelStopped -= ReelStoppedCallback;
-        reelsExecuting -= 1;
 
         if(reelsEffectHolders.Count > 0)
         {
@@ -175,9 +174,17 @@ public class Grid : MonoBehaviour
             reelsEffectHolders[0].StopClip();
             reelsEffectHolders.RemoveAt(0);
 
-            //CHECK EXPECTATION TO EXECUTE SOUND
-            SoundManager.Instance.ExecuteSfx(gridStopClip, gripStopVolume);
+            if(expectationHandler.hasExpectation) 
+            {
+                AudioClip clip = expectationHandler.GetAudioClip(reels.Count - reelsExecuting);
+                float volume = expectationHandler.gridStopVolume;
+                SoundManager.Instance.ExecuteSfx(clip, volume);
+            }
+            else
+                SoundManager.Instance.ExecuteSfx(gridStopClip, gripStopVolume);
         }
+
+        reelsExecuting -= 1;
 
         if (reelsExecuting == 0)
         {
@@ -192,6 +199,18 @@ public class Grid : MonoBehaviour
         }
         else
         {
+            if (expectationHandler.hasExpectation)
+            {
+                float delay = reelsExecuting == 1 ? expectationHandler.level_01 : expectationHandler.level_00;
+
+                this.Invoke(delay, () =>
+                {
+                    int targetReel = reels.Count - reelsExecuting;
+                    reels[targetReel].StopReel();
+                });
+                return;
+            }
+            
             int targetReel = reels.Count - reelsExecuting;
             reels[targetReel].StopReel();
         }

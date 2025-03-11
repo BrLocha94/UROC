@@ -598,6 +598,7 @@ Transform:
   - {fileID: 15480045270071428}
   - {fileID: 2642660095978522161}
   - {fileID: 8324926841269499569}
+  - {fileID: 1566603357818726698}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6633611463610137919
@@ -616,6 +617,7 @@ MonoBehaviour:
   winlineHandler: {fileID: 2495926987781577428}
   idleBreakerHandler: {fileID: 6810195560489393857}
   anticipationHandler: {fileID: 2708779735064367088}
+  expectationHandler: {fileID: 3493716472632646410}
   reels:
   - {fileID: 166971939943143265}
   - {fileID: 7308592480690039535}
@@ -624,11 +626,6 @@ MonoBehaviour:
   gripSpinVolume: 0.8
   gridStopClip: {fileID: 8300000, guid: b32d2dc33bb5ddd4b923a1a0bcafab80, type: 3}
   gripStopVolume: 0.8
-  gridStopExpectiationList:
-  - {fileID: 8300000, guid: b32d2dc33bb5ddd4b923a1a0bcafab80, type: 3}
-  - {fileID: 8300000, guid: 785dfb12d26deab459f3b5c137579c10, type: 3}
-  - {fileID: 8300000, guid: 4dbde2e17691c7642867cc808aeadfa5, type: 3}
-  gripStopExpectationVolume: 0.8
 --- !u!1 &839735896369750150
 GameObject:
   m_ObjectHideFlags: 0
@@ -3944,6 +3941,57 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &5245351288667533077
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1566603357818726698}
+  - component: {fileID: 3493716472632646410}
+  m_Layer: 0
+  m_Name: Expectation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1566603357818726698
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5245351288667533077}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7028089398310764942}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3493716472632646410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5245351288667533077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c31988c2a6ec604b9035f9b6e5f1809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridStopExpectiationList:
+  - {fileID: 8300000, guid: b32d2dc33bb5ddd4b923a1a0bcafab80, type: 3}
+  - {fileID: 8300000, guid: 785dfb12d26deab459f3b5c137579c10, type: 3}
+  - {fileID: 8300000, guid: 4dbde2e17691c7642867cc808aeadfa5, type: 3}
+  gripStopExpectationVolume: 0.8
+  WinChance: 4
+  WinRange: 10
 --- !u!1 &5327864429903076527
 GameObject:
   m_ObjectHideFlags: 0
