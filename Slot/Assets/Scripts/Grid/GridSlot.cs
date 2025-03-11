@@ -31,5 +31,10 @@ public class GridSlot : MonoBehaviour
         slotSymbol.SetSymbol(symbol);
     }
 
+    public void ToogleSymbolHighlight(bool value)
+    {
+        slotSymbol.SetColorHighlighted(value);
+    }
+
     public Transform GetTransform() { return transform; }
 }

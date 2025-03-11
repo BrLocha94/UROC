@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Winline : MonoBehaviour
@@ -8,14 +9,25 @@ public class Winline : MonoBehaviour
     [SerializeField]
     private GameObject line;
 
+    [SerializeField]
+    private List<int> reelPositionIndex = new List<int>();
+
     private void Awake()
     {
         line.SetActive(false);
     }
 
-    public void ExecuteWinline()
+    public void ExecuteWinline(List<GridReel> reels)
     {
         line.SetActive(true);
+        
+        // TRIGGER SYMBOLS ANIMATION
+        for(int i = 0; i < reels.Count; i++) 
+        {
+            //Change color symbols
+            reels[i].SymbolHighlightToogle(reelPositionIndex[i], true);
+        }
+        
         this.Invoke(1.5f, () =>
         {
             line.SetActive(false);

@@ -13,8 +13,20 @@ public class WinlineHandler : MonoBehaviour
 
     private int winlineExecuting = 0;
 
+    private List<GridReel> reels = new List<GridReel>();
+
+    public void InitializeHandler(List<GridReel> reelsList)
+    {
+        reels = reelsList;
+    }
+
     public void ExecuteWinlines(List<bool> newWinlines)
     {
+        foreach (var reel in reels) 
+        {
+            reel.SymbolHighlightToogle(false);
+        }
+
         currentWinlines = newWinlines;
         winlineExecuting = 0;
 
@@ -23,7 +35,7 @@ public class WinlineHandler : MonoBehaviour
             if (currentWinlines[i]) 
             {
                 winlines[i].onWinlineFinished += OnWinlineFinished;
-                winlines[i].ExecuteWinline();
+                winlines[i].ExecuteWinline(reels);
                 winlineExecuting++;
             }
         }
@@ -40,6 +52,10 @@ public class WinlineHandler : MonoBehaviour
         if(winlineExecuting <= 0)
         {
             winlineExecuting = 0;
+            foreach (var reel in reels)
+            {
+                reel.SymbolHighlightToogle(true);
+            }
             onWinlinesFinishedExecuting?.Invoke();
         }
     }

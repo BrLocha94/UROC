@@ -17,4 +17,11 @@ public class SlotSymbol : MonoBehaviour
         targetRenderer.sprite = currentSymbol.sprite;
         targetTransform.transform.localScale = new Vector2(currentSymbol.size, currentSymbol.size);
     }
+
+    public void SetColorHighlighted(bool value)
+    {
+        Color targetColor = targetRenderer.color;
+        targetColor.a = value ? 1f : 0.6f;
+        targetRenderer.color = targetColor;
+    }
 }

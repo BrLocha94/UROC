@@ -485,7 +485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab46a6a1922c758498e2c9485491c86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useMockedSpin: 0
+  useMockedSpin: 1
   backgroundMusic: {fileID: 8300000, guid: 757a800a9b5b83f448b37c1975ceb49d, type: 3}
   windowManager: {fileID: 607573469}
   uiManager: {fileID: 2771257685897011182}

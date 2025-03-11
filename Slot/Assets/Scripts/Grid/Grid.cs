@@ -31,6 +31,7 @@ public class Grid : MonoBehaviour
     private void Start()
     {
         idleBreakerHandler.InitializeHandler(reels);
+        winlineHandler.InitializeHandler(reels);
         ChangeState(GridState.Idle);
     }
 
