@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    [Header("Mocked handlers")]
-    [SerializeField]
-    private bool useMockedSpin = false;
+    public bool useMockedSpin { get; private set; } = false;
 
     [Space]
 
@@ -30,6 +28,11 @@ public class GameController : MonoBehaviour
     {
         SoundManager.Instance.ExecuteMusic(backgroundMusic, 1f, true);
         windowManager.TriggerWindowInit();
+    }
+
+    public void ToogleUseMockedSpin(bool value)
+    {
+        useMockedSpin = value;
     }
 
     public void PLAY()

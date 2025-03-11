@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class DebugPanel : MonoBehaviour
@@ -14,6 +15,16 @@ public class DebugPanel : MonoBehaviour
     private TextMeshProUGUI reel03;
     [SerializeField]
     private TextMeshProUGUI winlines;
+    [SerializeField]
+    private Toggle toogle;
+
+    [SerializeField]
+    private GameController gameController;
+
+    private void Start()
+    {
+        toogle.isOn = gameController.useMockedSpin;
+    }
 
     public void SetData(SpinResultPayout spin)
     {
@@ -48,5 +59,10 @@ public class DebugPanel : MonoBehaviour
         }
 
         return response;
+    }
+
+    public void OnToogleValueChanged(bool value)
+    {
+        gameController.ToogleUseMockedSpin(value);
     }
 }
