@@ -17,9 +17,9 @@ public class GridReel : MonoBehaviour
     [SerializeField]
     private List<GridSlot> gridSlots = new List<GridSlot>();
 
-    private const float REEL_MIN_SPEED = 5f;
+    private const float REEL_MIN_SPEED = 1f;
     private const float REEL_MAX_SPEED = 10f;
-    private const float REEL_ACCELERATION = 0.1f;
+    private const float REEL_ACCELERATION = 0.2f;
 
     private string[] lastData = null;
     private List<Symbol> currentData = new List<Symbol>();
@@ -111,7 +111,12 @@ public class GridReel : MonoBehaviour
 
     private void ReelStopped()
     {
-        onReelStopped?.Invoke(this);
+        for (int i = 0; i < gridSlots.Count; i++)
+        {
+            gridSlots[i].ForceDefaultPosition();
+        }
+
         isStopping = false;
+        onReelStopped?.Invoke(this);
     }
 }

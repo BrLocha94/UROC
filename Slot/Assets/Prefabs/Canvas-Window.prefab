@@ -901,6 +901,7 @@ GameObject:
   - component: {fileID: 8135416654610454391}
   - component: {fileID: 218737468389346993}
   - component: {fileID: 5240154950878515877}
+  - component: {fileID: 6554830965958241614}
   - component: {fileID: 4915725460945234867}
   m_Layer: 5
   m_Name: Button-Finish
@@ -967,6 +968,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6554830965958241614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3055556357354505325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95ece6b955d009748a6147944496e9e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickSound: {fileID: 8300000, guid: 16c0602ca96d83d408e20b32a0b28236, type: 3}
+  volume: 0.8
 --- !u!114 &4915725460945234867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1034,6 +1049,7 @@ GameObject:
   - component: {fileID: 7671995060570253466}
   - component: {fileID: 6329003477722319303}
   - component: {fileID: 5637958517300739971}
+  - component: {fileID: 4459397356896849949}
   - component: {fileID: 336599862664868201}
   m_Layer: 5
   m_Name: Button-Yes
@@ -1100,6 +1116,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4459397356896849949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4043133852588100688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95ece6b955d009748a6147944496e9e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickSound: {fileID: 8300000, guid: 16c0602ca96d83d408e20b32a0b28236, type: 3}
+  volume: 0.8
 --- !u!114 &336599862664868201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1167,6 +1197,7 @@ GameObject:
   - component: {fileID: 1542284052167150214}
   - component: {fileID: 6796324683243047595}
   - component: {fileID: 6159465174558361762}
+  - component: {fileID: 2153488812041761166}
   - component: {fileID: 8241167458573267025}
   m_Layer: 5
   m_Name: Button-Yes
@@ -1233,6 +1264,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2153488812041761166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4828340692936733201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95ece6b955d009748a6147944496e9e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickSound: {fileID: 8300000, guid: 16c0602ca96d83d408e20b32a0b28236, type: 3}
+  volume: 0.8
 --- !u!114 &8241167458573267025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1863,6 +1908,7 @@ GameObject:
   - component: {fileID: 7573025382625884302}
   - component: {fileID: 9200853054677535164}
   - component: {fileID: 5583167089286975242}
+  - component: {fileID: 2495537927645663656}
   - component: {fileID: 490179790453017632}
   m_Layer: 5
   m_Name: Button-No
@@ -1929,6 +1975,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2495537927645663656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7044765174176099399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95ece6b955d009748a6147944496e9e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickSound: {fileID: 8300000, guid: 16c0602ca96d83d408e20b32a0b28236, type: 3}
+  volume: 0.8
 --- !u!114 &490179790453017632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2157,6 +2217,7 @@ GameObject:
   - component: {fileID: 824454571404472896}
   - component: {fileID: 7405566737234106832}
   - component: {fileID: 1068211710509203404}
+  - component: {fileID: 8725464795184979503}
   - component: {fileID: 6124983091577932738}
   m_Layer: 5
   m_Name: Button-Retry
@@ -2223,6 +2284,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8725464795184979503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7228452124209381767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95ece6b955d009748a6147944496e9e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickSound: {fileID: 8300000, guid: 16c0602ca96d83d408e20b32a0b28236, type: 3}
+  volume: 0.8
 --- !u!114 &6124983091577932738
 MonoBehaviour:
   m_ObjectHideFlags: 0

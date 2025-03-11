@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5861889110195796452}
   - component: {fileID: 1300892917101511863}
+  - component: {fileID: 5721672225730310506}
   - component: {fileID: 3135875717572505236}
   - component: {fileID: 4811293683821076238}
   m_Layer: 5
@@ -46,6 +47,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 284714514352491557}
   m_CullTransparentMesh: 1
+--- !u!114 &5721672225730310506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284714514352491557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95ece6b955d009748a6147944496e9e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickSound: {fileID: 8300000, guid: 16c0602ca96d83d408e20b32a0b28236, type: 3}
+  volume: 0.8
 --- !u!114 &3135875717572505236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,6 +293,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2839026985191697411}
   - component: {fileID: 2632762225279258570}
+  - component: {fileID: 7018219443142481413}
   - component: {fileID: 7684660974447978067}
   - component: {fileID: 2214434130045629465}
   m_Layer: 5
@@ -315,6 +331,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1832297897411038396}
   m_CullTransparentMesh: 1
+--- !u!114 &7018219443142481413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832297897411038396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95ece6b955d009748a6147944496e9e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickSound: {fileID: 8300000, guid: 96ad0e85a5acfa84c868dcc203e3ed6d, type: 3}
+  volume: 0.7
 --- !u!114 &7684660974447978067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,6 +490,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3035a49a14d096d4c80fb455b1d440df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clickSound: {fileID: 8300000, guid: 16c0602ca96d83d408e20b32a0b28236, type: 3}
+  volume: 0.8
   soundSprites:
   - volume: 0
     sprite: {fileID: -1748514523701208367, guid: b5810e261dab4a442aa1def8d5c76e60, type: 3}

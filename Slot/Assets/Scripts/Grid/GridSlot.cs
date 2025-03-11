@@ -8,6 +8,18 @@ public class GridSlot : MonoBehaviour
 
     public Action<GridSlot> onPositionReseted;
 
+    private Vector3 defaultLocalPosition;
+
+    private void Awake()
+    {
+        defaultLocalPosition = transform.localPosition;
+    }
+
+    public void ForceDefaultPosition()
+    {
+        transform.localPosition = defaultLocalPosition;
+    }
+
     public void SlotResetPosition()
     {
         onPositionReseted?.Invoke(this);

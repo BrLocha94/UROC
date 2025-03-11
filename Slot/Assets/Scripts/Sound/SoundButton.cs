@@ -2,22 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Image))]
-[RequireComponent(typeof(Button))]
-public class SoundButton : MonoBehaviour
+public class SoundButton : ButtonUIBase
 {
     [SerializeField]
     private List<SoundSprite> soundSprites = new List<SoundSprite>();
-
-    private Image targetImage;
-    private Button targetButton;
-
-    private void Awake()
-    {
-        targetImage = GetComponent<Image>();
-        targetButton = GetComponent<Button>();
-        targetButton.onClick.AddListener(() => OnButtonClick());
-    }
 
     private void Start()
     {
@@ -37,8 +25,10 @@ public class SoundButton : MonoBehaviour
         }
     }
 
-    private void OnButtonClick()
+    protected override void OnButtonClick()
     {
+        base.OnButtonClick();
+
         SoundVolume volume = SoundManager.Instance.ChangeCurrentVolume();
         ChangeSprite(volume);
     }

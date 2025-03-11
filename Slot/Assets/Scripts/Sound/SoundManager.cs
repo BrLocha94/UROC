@@ -1,8 +1,18 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SoundManager : MonoSingleton<SoundManager>
 {
+    [SerializeField]
+    private AudioMixer audioMixer;
+
+    [SerializeField]
+    private List<SoundHolder> listHoldersMusic = new List<SoundHolder>();
+    [SerializeField]
+    private List<SoundHolder> listHoldersSfx = new List<SoundHolder>();
+
     public SoundVolume currentVolume { get; private set; }
 
     private const SoundVolume defaultVolume = SoundVolume.MEDIUM;
@@ -46,20 +56,45 @@ public class SoundManager : MonoSingleton<SoundManager>
         switch (currentVolume)
         {
             case SoundVolume.MUTE:
-                volumeLevel = 0f;
+                volumeLevel = -80f;
                 break;
             case SoundVolume.LOW:
-                volumeLevel = 0.3f;
+                volumeLevel = -20f;
                 break;
             case SoundVolume.MEDIUM:
-                volumeLevel = 0.6f;
+                volumeLevel = 1f;
                 break;
             case SoundVolume.HIGH:
-                volumeLevel = 1f;
+                volumeLevel = 3f;
                 break;
         }
 
-        AudioListener.volume = volumeLevel;
+        //EXPOSED MIXER PARAMS
+        audioMixer.SetFloat("MasterVolume", volumeLevel);
+    }
+
+    public void ExecuteMusic(AudioClip clip, float volume, bool loop = false)
+    {
+        for(int i = 0; i < listHoldersMusic.Count; i++)
+        {
+            if (!listHoldersMusic[i].isPlaying)
+            {
+                listHoldersMusic[i].ExecuteClip(clip, volume, loop);
+                return;
+            }
+        }
+    }
+
+    public void ExecuteSfx(AudioClip clip, float volume, bool loop = false)
+    {
+        for (int i = 0; i < listHoldersSfx.Count; i++)
+        {
+            if (!listHoldersSfx[i].isPlaying)
+            {
+                listHoldersSfx[i].ExecuteClip(clip, volume, loop);
+                return;
+            }
+        }
     }
 }
 

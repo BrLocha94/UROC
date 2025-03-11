@@ -11,6 +11,8 @@ public class GameController : MonoBehaviour
 
     [Header("References")]
     [SerializeField]
+    private AudioClip backgroundMusic;
+    [SerializeField]
     private WindowManager windowManager;
     [SerializeField]
     private UIManager uiManager;
@@ -24,6 +26,7 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        SoundManager.Instance.ExecuteMusic(backgroundMusic, 1f, true);
         windowManager.TriggerWindowInit();
     }
 
