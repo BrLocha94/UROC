@@ -8,8 +8,14 @@ public class Grid : MonoBehaviour
 
     [SerializeField]
     private GridState currentState = GridState.Idle;
+
+    [Header("Handlers")]
     [SerializeField]
     private WinlineHandler winlineHandler;
+    [SerializeField]
+    private IdleBreakerHandler idleBreakerHandler;
+
+    [Header("References")]
     [SerializeField]
     private List<GridReel> reels = new List<GridReel>();
 
@@ -20,13 +26,17 @@ public class Grid : MonoBehaviour
 
     SpinResultPayout currentSpinData = null;
 
+    bool hasExecutedSpin = false;
+
     private void Start()
     {
+        idleBreakerHandler.InitializeHandler(reels);
         ChangeState(GridState.Idle);
     }
 
     public void StartSpin(SpinResultPayout spin)
     {
+        hasExecutedSpin = true;
         currentSpinData = spin;
 
         // Set the reels with correct data
@@ -64,12 +74,18 @@ public class Grid : MonoBehaviour
 
     private void ExecuteOnIdle()
     {
-        // IdleBreaker routine?
+        if (hasExecutedSpin)
+        {
+            idleBreakerHandler.StartIdleBreaker();
+        }
+
         onIdleEnter?.Invoke();
     }
 
     private void ExecuteOnStartSpin()
     {
+        idleBreakerHandler.StopIdleBreaker();
+
         reelsExecuting = 0;
 
         for (int i = 0; i < reels.Count; i++)

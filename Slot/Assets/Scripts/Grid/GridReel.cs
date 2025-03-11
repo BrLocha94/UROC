@@ -119,4 +119,12 @@ public class GridReel : MonoBehaviour
         isStopping = false;
         onReelStopped?.Invoke(this);
     }
+
+    public GridSlot GetRandomGridSlot()
+    {
+        // EXCLUDE THE EXTRAS
+        int random = UnityEngine.Random.Range(1, gridSlots.Count - 1);
+        return gridSlots[random];
+    }
+    
 }

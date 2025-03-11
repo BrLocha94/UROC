@@ -1,12 +1,13 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class GridSlot : MonoBehaviour
 {
+    public Action<GridSlot> onPositionReseted;
+    
     [SerializeField]
     private SlotSymbol slotSymbol;
-
-    public Action<GridSlot> onPositionReseted;
 
     private Vector3 defaultLocalPosition;
 
@@ -29,4 +30,6 @@ public class GridSlot : MonoBehaviour
     {
         slotSymbol.SetSymbol(symbol);
     }
+
+    public Transform GetTransform() { return transform; }
 }

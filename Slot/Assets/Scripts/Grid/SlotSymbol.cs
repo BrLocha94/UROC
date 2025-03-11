@@ -9,6 +9,8 @@ public class SlotSymbol : MonoBehaviour
 
     private Symbol currentSymbol;
 
+    private Coroutine idleBreakerRoutine = null;
+
     public void SetSymbol(Symbol symbol)
     {
         currentSymbol = symbol;

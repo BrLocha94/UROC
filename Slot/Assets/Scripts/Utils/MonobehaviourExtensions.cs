@@ -46,9 +46,9 @@ public static class MonobehaviourExtensions
         callback?.Invoke();
     }
 
-    public static Coroutine RescaleRoutine(this MonoBehaviour host, Transform transform, Vector3 initialPosition, Vector3 finalPosition, AnimationCurve curve, float time, Action callback = null)
+    public static Coroutine RescaleRoutine(this MonoBehaviour host, Transform transform, Vector3 initialScale, Vector3 finalScale, AnimationCurve curve, float time, Action callback = null)
     {
-        return host.StartCoroutine(RescaleRoutine(transform, initialPosition, finalPosition, curve, time, callback));
+        return host.StartCoroutine(RescaleRoutine(transform, initialScale, finalScale, curve, time, callback));
     }
 
     private static IEnumerator RescaleRoutine(Transform transform, Vector3 initialScale, Vector3 finalScale, AnimationCurve curve, float time, Action callback = null)
