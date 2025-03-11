@@ -135,11 +135,12 @@ public class GridReel : MonoBehaviour
         }
     }
 
-    public void SymbolHighlightToogle(int index, bool value)
+    public void AnimateWinline(int index, bool value)
     {
         // COUNT EXTRA SLOT
         int updatedIndex = index + 1;
 
         gridSlots[updatedIndex].ToogleSymbolHighlight(value);
+        gridSlots[updatedIndex].AnimateWinline();
     }
 }

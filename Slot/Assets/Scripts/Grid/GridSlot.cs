@@ -36,5 +36,10 @@ public class GridSlot : MonoBehaviour
         slotSymbol.SetColorHighlighted(value);
     }
 
+    public void AnimateWinline()
+    {
+        slotSymbol.AnimateWinline();
+    }
+
     public Transform GetTransform() { return transform; }
 }

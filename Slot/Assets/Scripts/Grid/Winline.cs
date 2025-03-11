@@ -7,30 +7,24 @@ public class Winline : MonoBehaviour
     public Action<Winline> onWinlineFinished;
 
     [SerializeField]
-    private GameObject line;
+    private Animator lineAnimator;
 
     [SerializeField]
     private List<int> reelPositionIndex = new List<int>();
 
-    private void Awake()
-    {
-        line.SetActive(false);
-    }
 
     public void ExecuteWinline(List<GridReel> reels)
     {
-        line.SetActive(true);
+        lineAnimator.Play("Highlight");
         
         // TRIGGER SYMBOLS ANIMATION
         for(int i = 0; i < reels.Count; i++) 
         {
-            //Change color symbols
-            reels[i].SymbolHighlightToogle(reelPositionIndex[i], true);
+            reels[i].AnimateWinline(reelPositionIndex[i], true);
         }
         
-        this.Invoke(1.5f, () =>
+        this.Invoke(1.8f, () =>
         {
-            line.SetActive(false);
             onWinlineFinished?.Invoke(this);
         });
     }
