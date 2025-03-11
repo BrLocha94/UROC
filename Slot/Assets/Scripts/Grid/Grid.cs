@@ -14,10 +14,26 @@ public class Grid : MonoBehaviour
     private WinlineHandler winlineHandler;
     [SerializeField]
     private IdleBreakerHandler idleBreakerHandler;
+    [SerializeField]
+    private AnticipationHandler anticipationHandler;
 
     [Header("References")]
     [SerializeField]
     private List<GridReel> reels = new List<GridReel>();
+
+    [Header("Sounds")]
+    [SerializeField]
+    private AudioClip gridSpinClip;
+    [SerializeField]
+    private float gripSpinVolume = 0.8f;
+    [SerializeField]
+    private AudioClip gridStopClip;
+    [SerializeField]
+    private float gripStopVolume = 0.8f;
+    [SerializeField]
+    private List<AudioClip> gridStopExpectiationList = new List<AudioClip>();
+    [SerializeField]
+    private float gripStopExpectationVolume = 0.8f;
 
     int reelsExecuting = 0;
 
@@ -27,6 +43,8 @@ public class Grid : MonoBehaviour
     SpinResultPayout currentSpinData = null;
 
     bool hasExecutedSpin = false;
+
+    List<SoundHolder> reelsEffectHolders = new List<SoundHolder>();
 
     private void Start()
     {
@@ -40,10 +58,25 @@ public class Grid : MonoBehaviour
         hasExecutedSpin = true;
         currentSpinData = spin;
 
-        // Set the reels with correct data
-        for (int i = 0; i < reels.Count; i++) 
+        if (anticipationHandler.HasAnticipation(spin))
         {
-            reels[i].SetData(spin.ReelMatrix[i]);
+            anticipationHandler.onAnticipationFinish += StartSpin;
+            anticipationHandler.StartAnticipation();
+        }
+        else
+        {
+            StartSpin();
+        }
+    }
+
+    private void StartSpin()
+    {
+        anticipationHandler.onAnticipationFinish -= StartSpin;
+
+        // Set the reels with correct data
+        for (int i = 0; i < reels.Count; i++)
+        {
+            reels[i].SetData(currentSpinData.ReelMatrix[i]);
         }
 
         ChangeState(GridState.StartSpin);
@@ -94,6 +127,12 @@ public class Grid : MonoBehaviour
             reels[i].onReelSpinning += ReelSpiningCallback;
             reelsExecuting++;
             reels[i].StartReel();
+
+            SoundHolder holder = SoundManager.Instance.ExecuteSfx(gridSpinClip, gripSpinVolume, true);
+            if(holder != null)
+            {
+                reelsEffectHolders.Add(holder);
+            }
         }
     }
 
@@ -107,7 +146,6 @@ public class Grid : MonoBehaviour
 
     private void ExecuteOnSpinning()
     {
-        // CHECK ANY ANTICIPATION EVENTS HERE
         float timer = UnityEngine.Random.Range(MIN_TIME_TO_STOP, MAX_TIME_TO_STOP);
         this.Invoke(timer, () => ChangeState(GridState.Stoping));
     }
@@ -130,6 +168,16 @@ public class Grid : MonoBehaviour
     {
         target.onReelStopped -= ReelStoppedCallback;
         reelsExecuting -= 1;
+
+        if(reelsEffectHolders.Count > 0)
+        {
+            // Need to improve this
+            reelsEffectHolders[0].StopClip();
+            reelsEffectHolders.RemoveAt(0);
+
+            //CHECK EXPECTATION TO EXECUTE SOUND
+            SoundManager.Instance.ExecuteSfx(gridStopClip, gripStopVolume);
+        }
 
         if (reelsExecuting == 0)
         {

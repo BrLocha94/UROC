@@ -597,6 +597,7 @@ Transform:
   - {fileID: 3589352530721952181}
   - {fileID: 15480045270071428}
   - {fileID: 2642660095978522161}
+  - {fileID: 8324926841269499569}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6633611463610137919
@@ -614,10 +615,20 @@ MonoBehaviour:
   currentState: 0
   winlineHandler: {fileID: 2495926987781577428}
   idleBreakerHandler: {fileID: 6810195560489393857}
+  anticipationHandler: {fileID: 2708779735064367088}
   reels:
   - {fileID: 166971939943143265}
   - {fileID: 7308592480690039535}
   - {fileID: 8793034815966090311}
+  gridSpinClip: {fileID: 8300000, guid: 642bd440ae93aaa4ebe502400ae367a2, type: 3}
+  gripSpinVolume: 0.8
+  gridStopClip: {fileID: 8300000, guid: b32d2dc33bb5ddd4b923a1a0bcafab80, type: 3}
+  gripStopVolume: 0.8
+  gridStopExpectiationList:
+  - {fileID: 8300000, guid: b32d2dc33bb5ddd4b923a1a0bcafab80, type: 3}
+  - {fileID: 8300000, guid: 785dfb12d26deab459f3b5c137579c10, type: 3}
+  - {fileID: 8300000, guid: 4dbde2e17691c7642867cc808aeadfa5, type: 3}
+  gripStopExpectationVolume: 0.8
 --- !u!1 &839735896369750150
 GameObject:
   m_ObjectHideFlags: 0
@@ -3135,6 +3146,8 @@ PlayableDirector:
     value: {fileID: 7787826051077424884}
   - key: {fileID: -1149412554754917064, guid: 5e18cf01f61e1ba41b248916dcb46c10, type: 2}
     value: {fileID: 1369345459165341051}
+  - key: {fileID: 0}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &1369345459165341051
@@ -4349,6 +4362,8 @@ PlayableDirector:
     value: {fileID: 2051189903291766011}
   - key: {fileID: -1149412554754917064, guid: 5e18cf01f61e1ba41b248916dcb46c10, type: 2}
     value: {fileID: 6863486999589114266}
+  - key: {fileID: 0}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &6863486999589114266
@@ -4537,6 +4552,57 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 1
   m_SpriteSortPoint: 0
+--- !u!1 &6669210864291550525
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8324926841269499569}
+  - component: {fileID: 2708779735064367088}
+  m_Layer: 0
+  m_Name: Anticipation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8324926841269499569
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6669210864291550525}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7028089398310764942}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2708779735064367088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6669210864291550525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d55279a7c234864f9613c6eb08adb87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heavySnow: {fileID: 0}
+  anticipationSound: {fileID: 8300000, guid: fcb6dd00abf3309439df4d0ddf384090, type: 3}
+  anticipationTime: 3
+  WinChance: 5
+  WinRange: 10
+  LoseChance: 3
+  LoseRange: 10
 --- !u!1 &6787899947053327260
 GameObject:
   m_ObjectHideFlags: 0
@@ -4586,6 +4652,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 086201ef4a02ce04a9664e30cc4328d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialDelay: 0.5
+  winlineClip: {fileID: 8300000, guid: 1af81292bf482c14a8ec2c8b633562f7, type: 3}
+  winlineVolume: 1
   winlines:
   - {fileID: 7842255869391175171}
   - {fileID: 3969444137789441081}

@@ -19,5 +19,10 @@ public class SoundHolder : MonoBehaviour
         targetSource.Play();
     }
 
+    public void StopClip()
+    {
+        targetSource.Stop();
+    }
+
     public bool isPlaying => targetSource.isPlaying;
 }

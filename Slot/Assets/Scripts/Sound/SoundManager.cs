@@ -73,28 +73,30 @@ public class SoundManager : MonoSingleton<SoundManager>
         audioMixer.SetFloat("MasterVolume", volumeLevel);
     }
 
-    public void ExecuteMusic(AudioClip clip, float volume, bool loop = false)
+    public SoundHolder ExecuteMusic(AudioClip clip, float volume, bool loop = false)
     {
         for(int i = 0; i < listHoldersMusic.Count; i++)
         {
             if (!listHoldersMusic[i].isPlaying)
             {
                 listHoldersMusic[i].ExecuteClip(clip, volume, loop);
-                return;
+                return listHoldersMusic[i];
             }
         }
+        return null;
     }
 
-    public void ExecuteSfx(AudioClip clip, float volume, bool loop = false)
+    public SoundHolder ExecuteSfx(AudioClip clip, float volume, bool loop = false)
     {
         for (int i = 0; i < listHoldersSfx.Count; i++)
         {
             if (!listHoldersSfx[i].isPlaying)
             {
                 listHoldersSfx[i].ExecuteClip(clip, volume, loop);
-                return;
+                return listHoldersSfx[i];
             }
         }
+        return null;
     }
 }
 
