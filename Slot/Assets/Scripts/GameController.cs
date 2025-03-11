@@ -17,6 +17,8 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private UIManager uiManager;
     [SerializeField]
+    private DebugPanel debugPanel;
+    [SerializeField]
     private Grid grid;
 
     private MockedSpinResultHandler mockedSpinHandler = new MockedSpinResultHandler();
@@ -67,6 +69,7 @@ public class GameController : MonoBehaviour
     {
         grid.onIdleEnter += OnGridRevealFinished;
         grid.StartSpin(spin);
+        debugPanel.SetData(spin);
     }
 
     private void OnGridRevealFinished()

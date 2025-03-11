@@ -22,7 +22,7 @@ public class WinlineHandler : MonoBehaviour
 
     public void ExecuteWinlines(List<bool> newWinlines)
     {
-        foreach (var reel in reels) 
+        foreach (var reel in reels)
         {
             reel.SymbolHighlightToogle(false);
         }
@@ -30,9 +30,9 @@ public class WinlineHandler : MonoBehaviour
         currentWinlines = newWinlines;
         winlineExecuting = 0;
 
-        for (int i = 0; i < winlines.Count; i++) 
+        for (int i = 0; i < winlines.Count; i++)
         {
-            if (currentWinlines[i]) 
+            if (currentWinlines[i])
             {
                 winlines[i].onWinlineFinished += OnWinlineFinished;
                 winlines[i].ExecuteWinline(reels);
@@ -40,8 +40,15 @@ public class WinlineHandler : MonoBehaviour
             }
         }
 
-        if(winlineExecuting == 0)
+        // PROTECTION TO CASE WINLINE DATA IS FALSE
+        if (winlineExecuting == 0)
+        {
+            foreach (var reel in reels)
+            {
+                reel.SymbolHighlightToogle(true);
+            }
             onWinlinesFinishedExecuting?.Invoke();
+        }
     }
 
     private void OnWinlineFinished(Winline target)
